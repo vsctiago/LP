@@ -16,10 +16,12 @@ int main(int argc, char** argv) {
     int opt, opti, insnr = 0;
     Instructor instructor[INS_MAX];
     
+    initInsFile(instructor);
     do{
         menu();
         printf("Option?: ");
         scanf("%d", &opt);
+        
         if(opt == 1){
             
         }else if(opt == 2){

@@ -120,7 +120,7 @@ void insList(Instructor instructor[]){
     printf("*Instructors List*");
     printf("%c", NEWLINE);
     for(i=0; i < INS_MAX; i++){
-        printf("%hu - %s", instructor[i].license_nr, instructor[i].person.name);
+        printf("%hu", instructor[i].license_nr);
         printf("%c", NEWLINE);
     }
 }
