@@ -33,6 +33,47 @@ Instructor getSal(Instructor instructor){
     return instructor;
 }
 
+Instructor initInsFile(Instructor instructor[]) {
+    unsigned short int i;
+    
+    for(i = 0; i < INS_MAX; i++){
+        strcpy(instructor[i++].license_nr, EMPTY_STRING);
+    }
+    return instructor[INS_MAX];
+}
+
+Instructor createInsFile(Instructor instructor[]){
+    int frtn;
+    
+    FILE *pIns = fopen("instructors","w");
+    if(pIns == (FILE *) NULL){
+        printf("Failed to create file");
+    }else{
+        frtn = fwrite(instructor, sizeof(Instructor), INS_MAX, pIns);
+    }
+    return instructor[INS_MAX];
+}
+
+Instructor readInsFile(Instructor instructor[]){
+    int frtn, i;
+    
+    FILE *pIns = fopen("instructors","r");
+    if(pIns == (FILE *) NULL){
+        puts("Ficheiro nao existente.");
+        puts("A criar ficheiro...");
+        createInsFile(instructor);
+        instructor[INS_MAX] = initInsFile(instructor);
+        puts("Ficheiro criado.");
+        readInsFile(instructor);
+        for(i=0; i > INS_MAX; i++){
+            printf("%d: %c", i, instructor[i].license_nr);
+        }
+    }else{
+        fread(instructor, sizeof(Instructor), INS_MAX, pIns);
+        fclose(pIns);
+    }
+}
+
 void insMenu(){
     printf("1. Add");
     printf("%c", NEWLINE);
@@ -54,9 +95,14 @@ Instructor insAdd(Instructor instructor[], int insnr){
     instructor[insnr].person = getBirthday(instructor[insnr].person);
     instructor[insnr].person = getCat(instructor[insnr].person);
     instructor[insnr] = getSal(instructor[insnr]);
-    printf("Instructor added successfully. %c", NEWLINE);
+    printf("Instructor added successfully.");
+    printf("%c", NEWLINE);
     
     return instructor[insnr];
+}
+
+Instructor insList(Instructor instructor[], int insnr){
+    
 }
 
 

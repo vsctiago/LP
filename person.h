@@ -76,9 +76,7 @@ Person getBirthday(Person person) {
     clearInput();
     scanf("%d", &person.date.tm_mon);
     clearInput();
-    printf("Year: ");
     scanf("%d", &person.date.tm_year);
-    clearInput();
     return person;
 }
 

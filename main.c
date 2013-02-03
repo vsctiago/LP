@@ -20,6 +20,7 @@ int main(int argc, char** argv) {
         menu();
         printf("Option?: ");
         scanf("%d", &opt);
+        instructor[INS_MAX] = readInsFile(instructor);
         if(opt == 1){
             
         }else if(opt == 2){
