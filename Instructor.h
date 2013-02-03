@@ -12,6 +12,7 @@
 #include "person.h"
 
 #define INS_MAX 5
+#define INS_INIT 9999
 
 //:CONFIRM: if unsigned float works.
 typedef struct {
@@ -37,7 +38,19 @@ Instructor initInsFile(Instructor instructor[]) {
     unsigned short int i;
     
     for(i = 0; i < INS_MAX; i++){
-        strcpy(instructor[i++].license_nr, EMPTY_STRING);
+        instructor[i].license_nr = INS_INIT;
+    }
+    return instructor[INS_MAX];
+}
+
+Instructor saveInsFile(Instructor instructor[]){
+    int frtn;
+    
+    FILE *pIns = fopen("instructors","w");
+    if(pIns == (FILE *) NULL){
+        printf("File does not exist.");
+    }else{
+        frtn = fwrite(instructor, sizeof(instructor), INS_MAX, pIns);
     }
     return instructor[INS_MAX];
 }
@@ -49,21 +62,21 @@ Instructor createInsFile(Instructor instructor[]){
     if(pIns == (FILE *) NULL){
         printf("Failed to create file");
     }else{
-        frtn = fwrite(instructor, sizeof(Instructor), INS_MAX, pIns);
+        frtn = fwrite(instructor, sizeof(instructor), INS_MAX, pIns);
     }
     return instructor[INS_MAX];
 }
 
 Instructor readInsFile(Instructor instructor[]){
-    int frtn, i;
+    int i;
     
     FILE *pIns = fopen("instructors","r");
     if(pIns == (FILE *) NULL){
-        puts("Ficheiro nao existente.");
-        puts("A criar ficheiro...");
+        puts("File does not exist.");
+        puts("Creating file...");
         createInsFile(instructor);
         instructor[INS_MAX] = initInsFile(instructor);
-        puts("Ficheiro criado.");
+        puts("File created.");
         readInsFile(instructor);
         for(i=0; i > INS_MAX; i++){
             printf("%d: %c", i, instructor[i].license_nr);
@@ -101,8 +114,15 @@ Instructor insAdd(Instructor instructor[], int insnr){
     return instructor[insnr];
 }
 
-Instructor insList(Instructor instructor[], int insnr){
+void insList(Instructor instructor[]){
+    int i;
     
+    printf("*Instructors List*");
+    printf("%c", NEWLINE);
+    for(i=0; i < INS_MAX; i++){
+        printf("%hu - %s", instructor[i].license_nr, instructor[i].person.name);
+        printf("%c", NEWLINE);
+    }
 }
 
 
