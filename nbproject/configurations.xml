@@ -4,6 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>Instructor.h</itemPath>
       <itemPath>person.h</itemPath>
       <itemPath>utilities.h</itemPath>
     </logicalFolder>

@@ -31,17 +31,20 @@ Bool fgetsUpd(char * const sentence, const unsigned int size) {
     }
 }
 
+void clearInput() {
+    char ch;
+    while ((ch = getchar()) != '\n' && ch != EOF);
+}
+
 void menu(){
-    int opt;
-    
-    do{
     printf("1. Students");
+    printf("%c", NEWLINE);
     printf("2. Instructors");
+    printf("%c", NEWLINE);
     printf("3. Schedule Class");
+    printf("%c", NEWLINE);
     printf("4. Exit");
-    } while (opt != 4);
-    
-    return opt;
+    printf("%c", NEWLINE);
 }
 
 #ifdef	__cplusplus
