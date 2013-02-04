@@ -16,7 +16,6 @@ int main(int argc, char** argv) {
     int opt, opti, insnr = 0;
     Instructor instructor[INS_MAX];
     
-    initInsFile(instructor);
     do{
         menu();
         printf("Option?: ");
@@ -43,6 +42,7 @@ int main(int argc, char** argv) {
             
         }
     } while(opt != 4);
+    saveInsFile(instructor);
     
     return (EXIT_SUCCESS);
 }

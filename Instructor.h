@@ -34,6 +34,23 @@ Instructor getSal(Instructor instructor){
     return instructor;
 }
 
+Bool insVerifyPos(Instructor instructor[]){
+    Bool v = FALSE;
+    int pos;
+    
+    for(pos=0; pos < INS_MAX; pos++){
+        if(instructor[pos].license_nr == 9999){
+            v = TRUE;
+            return pos;
+        }else{
+            v = FALSE;
+            printf("");
+            return EOF;
+        }
+    }
+    
+}
+
 Instructor initInsFile(Instructor instructor[]) {
     unsigned short int i;
     
@@ -50,7 +67,7 @@ Instructor saveInsFile(Instructor instructor[]){
     if(pIns == (FILE *) NULL){
         printf("File does not exist.");
     }else{
-        frtn = fwrite(instructor, sizeof(instructor), INS_MAX, pIns);
+        frtn = fwrite(instructor, sizeof(Instructor), INS_MAX, pIns);
     }
     return instructor[INS_MAX];
 }
@@ -62,11 +79,12 @@ Instructor createInsFile(Instructor instructor[]){
     if(pIns == (FILE *) NULL){
         printf("Failed to create file");
     }else{
-        frtn = fwrite(instructor, sizeof(instructor), INS_MAX, pIns);
+        frtn = fwrite(instructor, sizeof(Instructor), INS_MAX, pIns);
     }
     return instructor[INS_MAX];
 }
 
+//:VERIFY: IF SIZEOF IS CORRECT
 Instructor readInsFile(Instructor instructor[]){
     int i;
     
@@ -101,13 +119,14 @@ void insMenu(){
 }
 
 Instructor insAdd(Instructor instructor[], int insnr){
-    instructor[insnr] = getLicnr(instructor[insnr]);
-    instructor[insnr].person = getName(instructor[insnr].person);
-    instructor[insnr].person = getAddress(instructor[insnr].person);
-    instructor[insnr].person = getPhone(instructor[insnr].person);
-    instructor[insnr].person = getBirthday(instructor[insnr].person);
-    instructor[insnr].person = getCat(instructor[insnr].person);
-    instructor[insnr] = getSal(instructor[insnr]);
+
+        instructor[insnr] = getLicnr(instructor[insnr]);
+        instructor[insnr].person = getName(instructor[insnr].person);
+        instructor[insnr].person = getAddress(instructor[insnr].person);
+        instructor[insnr].person = getPhone(instructor[insnr].person);
+        instructor[insnr].person = getBirthday(instructor[insnr].person);
+        instructor[insnr].person = getCat(instructor[insnr].person);
+        instructor[insnr] = getSal(instructor[insnr]);
     printf("Instructor added successfully.");
     printf("%c", NEWLINE);
     
