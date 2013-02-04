@@ -10,8 +10,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "person.h"
-
-#define INS_MAX 5
+//:TODO: changed INS_MAX to test easier
+#define INS_MAX 2
 #define INS_INIT 9999
 
 //:CONFIRM: if unsigned float works.
@@ -52,7 +52,7 @@ int insVerifyPos(Instructor instructor[]){
         printf("%c", NEWLINE);
         printf("Can't add more.");
         printf("%c", NEWLINE);
-    }
+    } return EOF;
 }
 
 Instructor initInsFile(Instructor instructor[]) {
@@ -88,7 +88,6 @@ Instructor createInsFile(Instructor instructor[]){
     return instructor[INS_MAX];
 }
 
-//:VERIFY: IF SIZEOF IS CORRECT
 Instructor readInsFile(Instructor instructor[]){
     int i;
     

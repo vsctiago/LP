@@ -30,8 +30,11 @@ int main(int argc, char** argv) {
             scanf("%d", &opti);
             if(opti == 1){
                 insnr = insVerifyPos(instructor);
-                insAdd(instructor, insnr);
-                saveInsFile(instructor);
+                if(insnr != EOF){
+                    insAdd(instructor, insnr);
+                    saveInsFile(instructor);
+                }
+                
             }else if(opti == 2){
                 
             }else if(opti == 3){
