@@ -47,6 +47,12 @@ int insVerifyPos(Instructor instructor[]){
             pos++;
         }
     }
+    if(v == FALSE && pos == INS_MAX){
+        printf("File is full.");
+        printf("%c", NEWLINE);
+        printf("Can't add more.");
+        printf("%c", NEWLINE);
+    }
 }
 
 Instructor initInsFile(Instructor instructor[]) {
