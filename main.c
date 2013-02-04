@@ -29,6 +29,7 @@ int main(int argc, char** argv) {
             printf("Option?: ");
             scanf("%d", &opti);
             if(opti == 1){
+                insnr = insVerifyPos(instructor);
                 insAdd(instructor, insnr);
                 saveInsFile(instructor);
             }else if(opti == 2){

@@ -34,21 +34,19 @@ Instructor getSal(Instructor instructor){
     return instructor;
 }
 
-Bool insVerifyPos(Instructor instructor[]){
+int insVerifyPos(Instructor instructor[]){
     Bool v = FALSE;
-    int pos;
+    int pos = 0;
     
-    for(pos=0; pos < INS_MAX; pos++){
+    while(v == FALSE && pos < INS_MAX){
         if(instructor[pos].license_nr == 9999){
             v = TRUE;
             return pos;
         }else{
             v = FALSE;
-            printf("");
-            return EOF;
+            pos++;
         }
     }
-    
 }
 
 Instructor initInsFile(Instructor instructor[]) {
@@ -120,13 +118,13 @@ void insMenu(){
 
 Instructor insAdd(Instructor instructor[], int insnr){
 
-        instructor[insnr] = getLicnr(instructor[insnr]);
-        instructor[insnr].person = getName(instructor[insnr].person);
-        instructor[insnr].person = getAddress(instructor[insnr].person);
-        instructor[insnr].person = getPhone(instructor[insnr].person);
-        instructor[insnr].person = getBirthday(instructor[insnr].person);
-        instructor[insnr].person = getCat(instructor[insnr].person);
-        instructor[insnr] = getSal(instructor[insnr]);
+    instructor[insnr] = getLicnr(instructor[insnr]);
+    instructor[insnr].person = getName(instructor[insnr].person);
+    instructor[insnr].person = getAddress(instructor[insnr].person);
+    instructor[insnr].person = getPhone(instructor[insnr].person);
+    instructor[insnr].person = getBirthday(instructor[insnr].person);
+    instructor[insnr].person = getCat(instructor[insnr].person);
+    instructor[insnr] = getSal(instructor[insnr]);
     printf("Instructor added successfully.");
     printf("%c", NEWLINE);
     
