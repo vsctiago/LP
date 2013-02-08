@@ -33,8 +33,7 @@ int main(int argc, char** argv) {
                 if(insnr != EOF){
                     insAdd(instructor, insnr);
                     saveInsFile(instructor);
-                }
-                
+            }    
             }else if(opti == 2){
                 insModify(instructor);
                 saveInsFile(instructor);

@@ -6,6 +6,7 @@
                    projectFiles="true">
       <itemPath>Instructor.h</itemPath>
       <itemPath>person.h</itemPath>
+      <itemPath>schedule.h</itemPath>
       <itemPath>utilities.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
