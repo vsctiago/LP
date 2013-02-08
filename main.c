@@ -41,7 +41,8 @@ int main(int argc, char** argv) {
             }else if(opti == 3){
                 insList(instructor);
             }else if(opti == 4){
-                
+                insRemove(instructor);
+                saveInsFile(instructor);
             }
         }else if(opt == 3){
             

@@ -161,8 +161,13 @@ void insList(Instructor instructor[]){
     printf("*Instructors List*");
     printf("%c", NEWLINE);
     for(i=0; i < INS_MAX; i++){
-        printf("%hu - %s", instructor[i].license_nr, instructor[i].person.name);
-        printf("%c", NEWLINE);
+        if(instructor[i].license_nr == 9999){
+            printf("%hu", instructor[i].license_nr);
+            printf("%c", NEWLINE);
+        }else{
+            printf("%hu - %s", instructor[i].license_nr, instructor[i].person.name);
+            printf("%c", NEWLINE);
+        }
     }
 }
 
@@ -199,8 +204,11 @@ Instructor insModify(Instructor instructor[]){
     printf("%c", NEWLINE);
     printf("5. Salary");
     printf("%c", NEWLINE);
-    
+    printf("6. back");
+    printf("%c", NEWLINE);
+    printf("Opt: ");
     scanf("%d", &opt);
+    clearInput();
     
     if(opt == 1){
         instructor[insnr].person = getName(instructor[insnr].person);
@@ -226,10 +234,30 @@ Instructor insModify(Instructor instructor[]){
     return instructor[insnr];
 }
 
-Instructor insRemove(Instructor instructor){
+Instructor insRemove(Instructor instructor[]){
+    Bool v = FALSE;
+    int insnr, lic;
     
+    printf("Instructor list:");
+    insList(instructor);
+    printf("Which to delete?: ");
+    scanf("%d", &lic);
+    printf("%c", NEWLINE);
+    clearInput();
     
-    return instructor;
+    while(v == FALSE){
+        insnr = insFind(instructor, lic);
+        if(insnr == EOF){
+            printf("Insert another: ");
+            scanf("%d", &lic);
+            v = FALSE;
+        }else{
+            instructor[insnr].license_nr = INS_INIT;
+            v = TRUE;
+        }
+    }
+    
+    return instructor[insnr];
 }
 
 #ifdef	__cplusplus
