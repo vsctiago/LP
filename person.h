@@ -41,6 +41,7 @@ typedef struct {
 
 Person getName(Person person){
     printf("Full name: ");
+    clearInput();
     fgetsUpd(person.name, NAME_LENGTH);
     return person;
 }

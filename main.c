@@ -36,7 +36,8 @@ int main(int argc, char** argv) {
                 }
                 
             }else if(opti == 2){
-                
+                insModify(instructor);
+                saveInsFile(instructor);
             }else if(opti == 3){
                 insList(instructor);
             }else if(opti == 4){

@@ -55,6 +55,25 @@ int insVerifyPos(Instructor instructor[], int find){
     } return EOF;
 }
 
+int insFind(Instructor instructor[], int find){
+    Bool v = FALSE;
+    int pos = 0;
+    
+    while(v == FALSE && pos < INS_MAX){
+        if(instructor[pos].license_nr == find){
+            v = TRUE;
+            return pos;
+        }else{
+            v = FALSE;
+            pos++;
+        }
+    }
+    if(v == FALSE && pos == INS_MAX){
+        printf("Instructor not found.");
+        printf("%c", NEWLINE);
+    } return EOF;
+}
+
 Instructor initInsFile(Instructor instructor[]) {
     unsigned short int i;
     
@@ -142,18 +161,31 @@ void insList(Instructor instructor[]){
     printf("*Instructors List*");
     printf("%c", NEWLINE);
     for(i=0; i < INS_MAX; i++){
-        printf("%hu", instructor[i].license_nr);
+        printf("%hu - %s", instructor[i].license_nr, instructor[i].person.name);
         printf("%c", NEWLINE);
     }
 }
 
-Instructor insModify(Instructor instructor[], int insnr){
-    int opt, ins;
+Instructor insModify(Instructor instructor[]){
+    Bool v = FALSE;
+    int opt, lic, insnr;
     
     printf("Which u want to modify?");
     printf("%c", NEWLINE);
     insList(instructor);
-    scanf("%d", &ins);
+    printf("Instructor number: ");
+    scanf("%d", &lic);
+    
+    while(v == FALSE){
+        insnr = insFind(instructor, lic);
+        if(insnr == EOF){
+            printf("Insert another: ");
+            scanf("%d", &lic);
+            v = FALSE;
+        }else{
+            v = TRUE;
+        }
+    }
     
     printf("What you want to modify?");
     printf("%c", NEWLINE);
@@ -168,9 +200,36 @@ Instructor insModify(Instructor instructor[], int insnr){
     printf("5. Salary");
     printf("%c", NEWLINE);
     
+    scanf("%d", &opt);
+    
     if(opt == 1){
-        
+        instructor[insnr].person = getName(instructor[insnr].person);
+        printf("Modified successfully.");
+        printf("%c", NEWLINE);
+    }else if(opt == 2){
+        instructor[insnr].person = getAddress(instructor[insnr].person);
+        printf("Modified successfully.");
+        printf("%c", NEWLINE);
+    }else if(opt == 3){
+        instructor[insnr].person = getPhone(instructor[insnr].person);
+        printf("Modified successfully.");
+        printf("%c", NEWLINE);
+    }else if(opt == 4){
+        instructor[insnr].person = getBirthday(instructor[insnr].person);
+        printf("Modified successfully.");
+        printf("%c", NEWLINE);
+    }else if(opt == 5){
+        instructor[insnr] = getSal(instructor[insnr]);
+        printf("Modified successfully.");
+        printf("%c", NEWLINE);
     }
+    return instructor[insnr];
+}
+
+Instructor insRemove(Instructor instructor){
+    
+    
+    return instructor;
 }
 
 #ifdef	__cplusplus
