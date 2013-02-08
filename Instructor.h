@@ -34,12 +34,12 @@ Instructor getSal(Instructor instructor){
     return instructor;
 }
 
-int insVerifyPos(Instructor instructor[]){
+int insVerifyPos(Instructor instructor[], int find){
     Bool v = FALSE;
     int pos = 0;
     
     while(v == FALSE && pos < INS_MAX){
-        if(instructor[pos].license_nr == 9999){
+        if(instructor[pos].license_nr == find){
             v = TRUE;
             return pos;
         }else{
@@ -147,6 +147,31 @@ void insList(Instructor instructor[]){
     }
 }
 
+Instructor insModify(Instructor instructor[], int insnr){
+    int opt, ins;
+    
+    printf("Which u want to modify?");
+    printf("%c", NEWLINE);
+    insList(instructor);
+    scanf("%d", &ins);
+    
+    printf("What you want to modify?");
+    printf("%c", NEWLINE);
+    printf("1. Name");
+    printf("%c", NEWLINE);
+    printf("2. Address");
+    printf("%c", NEWLINE);
+    printf("3. Phone");
+    printf("%c", NEWLINE);
+    printf("4. Birthday");
+    printf("%c", NEWLINE);
+    printf("5. Salary");
+    printf("%c", NEWLINE);
+    
+    if(opt == 1){
+        
+    }
+}
 
 #ifdef	__cplusplus
 extern "C" {

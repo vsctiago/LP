@@ -12,8 +12,6 @@
 #include <stdlib.h>
 #define NEWLINE '\n'
 
-const char EMPTY_STRING[] = "\0";
-
 typedef enum {
     FALSE, TRUE
 } Bool;
