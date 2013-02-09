@@ -53,11 +53,11 @@ Person getName(Person person){
                 v = TRUE;
             }else{
                 v = FALSE;
+                printf("Enter a valid Full name: ");
+                fgetsUpd(person.name, NAME_LENGTH);
                 break;
             }
-        }
-        printf("Enter a valid Full name: ");
-        fgetsUpd(person.name, NAME_LENGTH);
+        }//fim do for
     }
     
     return person;
