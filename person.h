@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <ctype.h>
 #include "utilities.h"
 
 #define NAME_LENGTH 80
@@ -40,8 +41,25 @@ typedef struct {
 } Person;
 
 Person getName(Person person){
+    Bool v = FALSE;
+    int i;
+    
     printf("Full name: ");
     fgetsUpd(person.name, NAME_LENGTH);
+    
+    while(v == FALSE){
+        for(i=0; i < NAME_LENGTH && person.name[i] != '\0' ; i++){
+            if(isalpha(person.name[i]) || isspace(person.name[i])){
+                v = TRUE;
+            }else{
+                v = FALSE;
+                break;
+            }
+        }
+        printf("Enter a valid Full name: ");
+        fgetsUpd(person.name, NAME_LENGTH);
+    }
+    
     return person;
 }
 
