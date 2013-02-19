@@ -15,7 +15,7 @@
 
 #define NAME_LENGTH 80
 #define STREET_LENGTH 60
-#define CITY_LENGTH 20
+#define CITY_LENGTH 30
 #define POSTAL_CODE 8
 #define PHONE_LENGTH 9
 #define PC_DASH 4
@@ -143,7 +143,7 @@ Person getAddress(Person person){
     //City validation.
     v = FALSE;
     while(v == FALSE){
-        for(i=0; i<CITY_LENGTH && person.address.city != '\0'; i++){
+        for(i=0; i<CITY_LENGTH && person.address.city[i] != '\0'; i++){
             if(isalpha(person.address.city[i]) || isspace(person.address.city[i])){
                 v = TRUE;
             }else{
