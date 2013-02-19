@@ -7,7 +7,6 @@
       <itemPath>Instructors.h</itemPath>
       <itemPath>person.h</itemPath>
       <itemPath>schedule.h</itemPath>
-      <itemPath>student.h</itemPath>
       <itemPath>students.h</itemPath>
       <itemPath>utilities.h</itemPath>
     </logicalFolder>

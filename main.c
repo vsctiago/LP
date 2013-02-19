@@ -24,7 +24,25 @@ int main(int argc, char** argv) {
         scanf("%d", &opt);
         
         if(opt == 1){
-            
+            students[STD_MAX] = readStdFile(students);
+            stdMenu();
+            printf("Option?: ");
+            scanf("%d", &opti);
+            if(opti == 1){
+                stdnr = stdVerifyPos(students, STD_INIT);
+                if(stdnr != EOF){
+                    stdAdd(students, stdnr);
+                    saveStdFile(students);
+                }    
+            }else if(opti == 2){
+                stdModify(students);
+                saveStdFile(students);
+            }else if(opti == 3){
+                stdList(students);
+            }else if(opti == 4){
+                stdRemove(students);
+                saveStdFile(students);
+            }
         }else if(opt == 2){
             instructors[INS_MAX] = readInsFile(instructors);
             insMenu();
@@ -35,7 +53,7 @@ int main(int argc, char** argv) {
                 if(insnr != EOF){
                     insAdd(instructors, insnr);
                     saveInsFile(instructors);
-            }    
+                }    
             }else if(opti == 2){
                 insModify(instructors);
                 saveInsFile(instructors);

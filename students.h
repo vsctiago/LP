@@ -10,7 +10,7 @@
 #include "person.h"
 
 //:TODO: changed INS_MAX to test easier
-#define STD_MAX 2
+#define STD_MAX 5
 #define STD_INIT 99999999
 
 //:CONFIRM: if unsigned float works.
@@ -100,7 +100,7 @@ int stdFind(Student students[], int find){
     int pos = 0;
     
     while(v == FALSE && pos < STD_MAX){
-        if(Student[pos].id == find){
+        if(students[pos].id == find){
             v = TRUE;
             return pos;
         }else{
@@ -154,10 +154,10 @@ Student readStdFile(Student students[]){
     if(pStd == (FILE *) NULL){
         puts("File does not exist.");
         puts("Creating file...");
-        createInsFile(students);
-        students[STD_MAX] = initInsFile(students);
+        createStdFile(students);
+        students[STD_MAX] = initStdFile(students);
         puts("File created.");
-        readInsFile(students);
+        readStdFile(students);
         for(i=0; i > STD_MAX; i++){
             printf("%d: %c", i, students[i].id);
         }
