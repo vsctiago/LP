@@ -191,45 +191,49 @@ Instructor insModify(Instructor instructors[]){
             v = TRUE;
         }
     }
-    
-    printf("What you want to modify?");
-    printf("%c", NEWLINE);
-    printf("1. Name");
-    printf("%c", NEWLINE);
-    printf("2. Address");
-    printf("%c", NEWLINE);
-    printf("3. Phone");
-    printf("%c", NEWLINE);
-    printf("4. Birthday");
-    printf("%c", NEWLINE);
-    printf("5. Salary");
-    printf("%c", NEWLINE);
-    printf("6. back");
-    printf("%c", NEWLINE);
-    printf("Opt: ");
-    scanf("%d", &opt);
-    clearInput();
-    
-    if(opt == 1){
-        instructors[insnr].person = getName(instructors[insnr].person);
-        printf("Modified successfully.");
+    if(instructors[insnr].license_nr == 9999){
+        printf("Instructor not found.");
         printf("%c", NEWLINE);
-    }else if(opt == 2){
-        instructors[insnr].person = getAddress(instructors[insnr].person);
-        printf("Modified successfully.");
+    }else{
+        printf("What you want to modify?");
         printf("%c", NEWLINE);
-    }else if(opt == 3){
-        instructors[insnr].person = getPhone(instructors[insnr].person);
-        printf("Modified successfully.");
+        printf("1. Name");
         printf("%c", NEWLINE);
-    }else if(opt == 4){
-        instructors[insnr].person = getBirthday(instructors[insnr].person);
-        printf("Modified successfully.");
+        printf("2. Address");
         printf("%c", NEWLINE);
-    }else if(opt == 5){
-        instructors[insnr] = getSal(instructors[insnr]);
-        printf("Modified successfully.");
+        printf("3. Phone");
         printf("%c", NEWLINE);
+        printf("4. Birthday");
+        printf("%c", NEWLINE);
+        printf("5. Salary");
+        printf("%c", NEWLINE);
+        printf("6. back");
+        printf("%c", NEWLINE);
+        printf("Opt: ");
+        scanf("%d", &opt);
+        clearInput();
+
+        if(opt == 1){
+            instructors[insnr].person = getName(instructors[insnr].person);
+            printf("Modified successfully.");
+            printf("%c", NEWLINE);
+        }else if(opt == 2){
+            instructors[insnr].person = getAddress(instructors[insnr].person);
+            printf("Modified successfully.");
+            printf("%c", NEWLINE);
+        }else if(opt == 3){
+            instructors[insnr].person = getPhone(instructors[insnr].person);
+            printf("Modified successfully.");
+            printf("%c", NEWLINE);
+        }else if(opt == 4){
+            instructors[insnr].person = getBirthday(instructors[insnr].person);
+            printf("Modified successfully.");
+            printf("%c", NEWLINE);
+        }else if(opt == 5){
+            instructors[insnr] = getSal(instructors[insnr]);
+            printf("Modified successfully.");
+            printf("%c", NEWLINE);
+        }
     }
     return instructors[insnr];
 }
