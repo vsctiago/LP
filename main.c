@@ -14,7 +14,7 @@
  */
 int main(int argc, char** argv) {
     int opt, opti, insnr = 0;
-    Instructor instructor[INS_MAX];
+    Instructor instructors[INS_MAX];
     
     do{
         menu();
@@ -24,30 +24,30 @@ int main(int argc, char** argv) {
         if(opt == 1){
             
         }else if(opt == 2){
-            instructor[INS_MAX] = readInsFile(instructor);
+            instructors[INS_MAX] = readInsFile(instructors);
             insMenu();
             printf("Option?: ");
             scanf("%d", &opti);
             if(opti == 1){
-                insnr = insVerifyPos(instructor, INS_INIT);
+                insnr = insVerifyPos(instructors, INS_INIT);
                 if(insnr != EOF){
-                    insAdd(instructor, insnr);
-                    saveInsFile(instructor);
+                    insAdd(instructors, insnr);
+                    saveInsFile(instructors);
             }    
             }else if(opti == 2){
-                insModify(instructor);
-                saveInsFile(instructor);
+                insModify(instructors);
+                saveInsFile(instructors);
             }else if(opti == 3){
-                insList(instructor);
+                insList(instructors);
             }else if(opti == 4){
-                insRemove(instructor);
-                saveInsFile(instructor);
+                insRemove(instructors);
+                saveInsFile(instructors);
             }
         }else if(opt == 3){
             
         }
     } while(opt != 4);
-    saveInsFile(instructor);
+    saveInsFile(instructors);
     
     return (EXIT_SUCCESS);
 }
