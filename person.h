@@ -62,10 +62,15 @@ Person getName(Person person){
     fgetsUpd(person.name, NAME_LENGTH);
     //Name validation.
     while(v == FALSE){
+        //for goes through the entire array or until it reaches the end('\0')
         for(i=0; i < NAME_LENGTH && person.name[i] != '\0'; i++){
+            //verifies if the positions contain either a character or space
             if(isalpha(person.name[i]) || isspace(person.name[i])){
                 v = TRUE;
             }else{
+                /* if one position isn't either a character or space
+                 * asks for another name and breaks the for.
+                 */
                 v = FALSE;
                 printf("Enter a valid Full name: ");
                 fgetsUpd(person.name, NAME_LENGTH);
@@ -76,7 +81,12 @@ Person getName(Person person){
     
     return person;
 }
-
+/**
+ * Function used to get the name for the instructor or student.
+ * 
+ * @param person - recieves either one instructor or student.
+ * @return - return the same instructor or student with the new data.
+ */
 Person getAddress(Person person){
     Bool v = FALSE;
     int i;
@@ -87,10 +97,15 @@ Person getAddress(Person person){
     fgetsUpd(person.address.street, STREET_LENGTH);
     //Address street validation.
     while(v == FALSE){
+        //for goes through the entire array or until it reaches the end('\0')
         for(i=0; i<STREET_LENGTH && person.address.street[i] != '\0'; i++){
+            //verifies if the positions contain either a character or space
             if(isalpha(person.address.street[i]) || isspace(person.address.street[i])){
                 v = TRUE;
             }else{
+                /* if one position isn't either a character or space
+                 * asks for another name and breaks the for.
+                 */
                 v = FALSE;
                 printf("Enter a valid street name:");
                 fgetsUpd(person.address.street, STREET_LENGTH);
@@ -107,6 +122,9 @@ Person getAddress(Person person){
         if(person.address.number > 0 && person.address.number < 1000){
             v = TRUE;
         }else{
+            /* if the number isnt > 0 and < 1000 it asks to enter the 
+             * number again.
+             */
             v = FALSE;
             printf("Enter a valid number: ");
             scanf("%hu", &person.address.number);
@@ -118,16 +136,26 @@ Person getAddress(Person person){
     //Postalcode validations.
     v = FALSE;
     while(v == FALSE){
+        /* verifies if 4th position of the array is a '-', if not the
+         * input isnt valid.
+         */
         if(person.address.postalcode[4] != '-'){
             v = FALSE;
             printf("Enter a valid postalcode: ");
             fgetsUpd(person.address.postalcode, POSTAL_CODE);
             clearInput();
         }else{
+            /* for runs throught the array while if checks if the number in
+             * the position is a number.
+             * This only checks before the '-'.
+             */
             for(i=0; i<PC_DASH; i++){
                 if(isdigit(person.address.postalcode[i])){
                     v = TRUE;
                 }else{
+                    /* if any position doesnt contain a digit it asks for 
+                     * a new postalcode.
+                     */
                     v = FALSE;
                     printf("Enter a valid postalcode: ");
                     fgetsUpd(person.address.postalcode, POSTAL_CODE);
@@ -136,6 +164,9 @@ Person getAddress(Person person){
                 }//if ends.
             }//for ends.
             if(v == FALSE){
+                /* Does the same thing as the other one but this one does it
+                 * after the '-'
+                 */ 
                 for(i=PC_ADASH; i<POSTAL_CODE; i++){
                     if(isdigit(person.address.postalcode[i])){
                         v = TRUE;
@@ -169,7 +200,11 @@ Person getAddress(Person person){
     
     return person;
 }
-
+/**
+ * 
+ * @param person
+ * @return 
+ */
 Person getPhone(Person person){
     Bool v = FALSE;
     

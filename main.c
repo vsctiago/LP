@@ -71,6 +71,7 @@ int main(int argc, char** argv) {
         }
     } while(opt != 4);
     saveInsFile(instructors);
+    saveStdFile(students);
     
     return (EXIT_SUCCESS);
 }

@@ -10,7 +10,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "person.h"
-//:TODO: changed INS_MAX to test easier
 #define INS_MAX 2
 #define INS_INIT 9999
 
