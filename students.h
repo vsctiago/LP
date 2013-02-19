@@ -1,68 +1,72 @@
 /* 
- * File:   students.h
+ * File:   student.h
  * Author: psycku
  *
- * Created on 19 de Fevereiro de 2013, 13:19
+ * Created on 19 de Fevereiro de 2013, 13:53
  */
-
-#ifndef STUDENTS_H
-#define	STUDENTS_H
 
 #ifndef STUDENT_H
 #define	STUDENT_H
-
-#include <stdio.h>
-#include <stdlib.h>
 #include "person.h"
 
-#define ID_LENGTH 8
-#define STD_MAX 20
-#define CAT_LENGTH 1
-#define LR_LENGTH 1
-#define STUD_MAX 2
-#define STUD_INIT 9999
+//:TODO: changed INS_MAX to test easier
+#define STD_MAX 2
+#define STD_INIT 99999999
 
-//:TODO: Validacoes e restricoes
+//:CONFIRM: if unsigned float works.
 
 typedef enum {
-    y = 'y', n = 'n'
-} LicenseRev;
-
-//:TODO: VALIDATE ID = 8 NUMBERS -- init= 99999999
+    Y = 'Y', N = 'N'
+} Rev;
 
 typedef struct {
-    unsigned char id[ID_LENGTH];
+    unsigned long id;
     Person person;
-    LicenseRev licenserev;
-} Instructor;
+    Rev rev;
+} Student;
 
-Instructor getId(Instructor student) {
+Student getId(Student student){
     Bool v = FALSE;
-
+    
+    printf("Student ID: ");
+    scanf("%lu", &student.id);
     clearInput();
-    printf("ID: ");
-    fgetsUpd(student.id, ID_LENGTH);
+    
+    while(v == FALSE){
+        if(student.id > 10000000 && student.id < 99999999){
+            v = TRUE;
+        }else{
+            v = FALSE;
+            printf("Insert a valid ID:");
+            scanf("%lu", &student.id);
+            clearInput();
+        }
+    }
+    
     return student;
 }
 
-Instructor getLicenseRev(Instructor student) {
-    char lr;
+Student getRev(Student student){
     Bool v = FALSE;
-
+    char rev;
+    
+    printf("Salary: ");
+    scanf("%f", &student.rev);
+    
     do {
         clearInput();
-        printf("Revalidate license?(y or n): ");
-        scanf("%c", &lr);
-        if (lr == 'y' || lr == 'Y') {
-            student.licenserev = y;
+        printf("Revalidate driver license?(Y,N): ");
+        scanf("%c", &rev);
+        if(rev == 'y' || rev == 'Y') {
+            student.rev = Y;
             v = TRUE;
-        } else if (lr == 'n' || lr == 'N') {
-            student.licenserev = n;
+        } else if (rev == 'n' || rev == 'N') {
+            student.rev = N;
             v = TRUE;
         } else {
             printf("Invalid input.");
             printf("%c", NEWLINE);
-            printf("Insert a valid category!");
+            printf("Insert a valid answer(Y,N)!");
             printf("%c", NEWLINE);
             v = FALSE;
         }
@@ -70,158 +74,167 @@ Instructor getLicenseRev(Instructor student) {
     return student;
 }
 
-int studVerifyPos(Instructor student[], int find) {
+int stdVerifyPos(Student students[], int find){
     Bool v = FALSE;
     int pos = 0;
-
-    while (v == FALSE && pos < STUD_MAX) {
-        if (student[pos].id == find) {
+    
+    while(v == FALSE && pos < STD_MAX){
+        if(students[pos].id == find){
             v = TRUE;
             return pos;
-        } else {
+        }else{
             v = FALSE;
             pos++;
         }
     }
-    if (v == FALSE && pos == STUD_MAX) {
+    if(v == FALSE && pos == STD_MAX){
         printf("File is full.");
         printf("%c", NEWLINE);
         printf("Can't add more.");
         printf("%c", NEWLINE);
-    }
-    return EOF;
+    } return EOF;
 }
 
-int studFind(Instructor student[], int find) {
+int stdFind(Student students[], int find){
     Bool v = FALSE;
     int pos = 0;
-
-    while (v == FALSE && pos < STUD_MAX) {
-        if (student[pos].id == find) {
+    
+    while(v == FALSE && pos < STD_MAX){
+        if(Student[pos].id == find){
             v = TRUE;
             return pos;
-        } else {
+        }else{
             v = FALSE;
             pos++;
         }
     }
-    if (v == FALSE && pos == STUD_MAX) {
+    if(v == FALSE && pos == STD_MAX){
         printf("Student not found.");
         printf("%c", NEWLINE);
-    }
-    return EOF;
+    } return EOF;
 }
 
-//:TODO: Must do validations for licenserev
-
-Instructor initStudFile(Instructor student[]) {
+Student initStdFile(Student students[]) {
     unsigned short int i;
-
-    for (i = 0; i < STD_MAX; i++) {
-        strcpy(student[i++].id, EMPTY_STRING);
+    
+    for(i = 0; i < STD_MAX; i++){
+        students[i].id = STD_INIT;
     }
-    return student[STD_MAX];
+    return students[STD_MAX];
 }
 
-Instructor saveStudFile(Instructor student[]) {
+Student saveStdFile(Student students[]){
     int frtn;
-
-    FILE *pStudents = fopen("students", "w");
-    if (pStudents == (FILE *) NULL) {
+    
+    FILE *pStd = fopen("students","w");
+    if(pStd == (FILE *) NULL){
         printf("File does not exist.");
-    } else {
-        frtn = fwrite(student, sizeof (Instructor), STD_MAX, pStudents);
+    }else{
+        frtn = fwrite(students, sizeof(Student), STD_MAX, pStd);
     }
-    return student[STD_MAX];
+    return students[STD_MAX];
 }
 
-Instructor readStudFile(Instructor student[]) {
-    int frtn, i;
+Student createStdFile(Student students[]){
+    int frtn;
+    
+    FILE *pStd = fopen("students","w");
+    if(pStd == (FILE *) NULL){
+        printf("Failed to create file");
+    }else{
+        frtn = fwrite(students, sizeof(Student), STD_MAX, pStd);
+    }
+    return students[STD_MAX];
+}
 
-    FILE *pStudents = fopen("students", "r");
-    if (pStudents == (FILE *) NULL) {
+Student readStdFile(Student students[]){
+    int i;
+    
+    FILE *pStd = fopen("instructors","r");
+    if(pStd == (FILE *) NULL){
         puts("File does not exist.");
         puts("Creating file...");
-        saveStudFile(student);
-        student[STD_MAX] = initStudFile(student);
+        createInsFile(students);
+        students[STD_MAX] = initInsFile(students);
         puts("File created.");
-        readStudFile(student);
-        for (i = 0; i > STD_MAX; i++) {
-            printf("%d: %c", i, student[i].id);
+        readInsFile(students);
+        for(i=0; i > STD_MAX; i++){
+            printf("%d: %c", i, students[i].id);
         }
-    } else {
-        fread(student, sizeof (Instructor), STD_MAX, pStudents);
-        fclose(pStudents);
-    }
-
-    return student[STD_MAX];
-}
-
-int searchStudent(Instructor student[], unsigned int sn) {
-    int pos = 0;
-
-    while ((pos < STD_MAX) && (sn != student[pos].id)) {
-        pos++;
-    }
-    if (pos != STD_MAX) {
-        return pos;
-    } else {
-        return EOF;
+    }else{
+        fread(students, sizeof(Student), STD_MAX, pStd);
+        fclose(pStd);
     }
 }
 
-Instructor studAdd(Instructor student[], int studentnr) {
-    student[studentnr] = getId(student[studentnr]);
-    student[studentnr].person = getName(student[studentnr].person);
-    student[studentnr].person = getAddress(student[studentnr].person);
-    student[studentnr].person = getPhone(student[studentnr].person);
-    student[studentnr].person = getBirthday(student[studentnr].person);
-    student[studentnr].person = getCat(student[studentnr].person);
-    student[studentnr] = getLicenseRev(student[studentnr]);
-    printf("Student added successfully.%c", NEWLINE);
-
-    return student[studentnr];
-}
-
-void studList(Instructor student[]) {
-    int i;
-
-    printf("*Instructors List*");
+void stdMenu(){
+    printf("1. Add");
     printf("%c", NEWLINE);
-    for (i = 0; i < STUD_MAX; i++) {
-        if (student[i].id == STUD_INIT) {
-            printf("%hu", student[i].id);
+    printf("2. Change");
+    printf("%c", NEWLINE);
+    printf("3. List");
+    printf("%c", NEWLINE);
+    printf("4. Remove");
+    printf("%c", NEWLINE);
+    printf("5. Back");
+    printf("%c", NEWLINE);
+}
+
+Student stdAdd(Student students[], int stdnr){
+
+    students[stdnr] = getId(students[stdnr]);
+    students[stdnr].person = getName(students[stdnr].person);
+    students[stdnr].person = getAddress(students[stdnr].person);
+    students[stdnr].person = getPhone(students[stdnr].person);
+    students[stdnr].person = getBirthday(students[stdnr].person);
+    students[stdnr].person = getCat(students[stdnr].person);
+    students[stdnr] = getRev(students[stdnr]);
+    printf("Student added successfully.");
+    printf("%c", NEWLINE);
+    
+    return students[stdnr];
+}
+
+void stdList(Student students[]){
+    int i;
+    
+    printf("*Students List*");
+    printf("%c", NEWLINE);
+    for(i=0; i < STD_MAX; i++){
+        if(students[i].id == 99999999){
+            printf("%hu", students[i].id);
             printf("%c", NEWLINE);
-        } else {
-            printf("%hu - %s", student[i].id, student[i].person.name);
+        }else{
+            printf("%hu - %s", students[i].id, students[i].person.name);
             printf("%c", NEWLINE);
         }
     }
 }
 
-Instructor studModify(Instructor student[]) {
+Student stdModify(Student students[]){
     Bool v = FALSE;
-    int opt, id, studentnr;
-
+    int opt, id, stdnr;
+    
     printf("Which u want to modify?");
     printf("%c", NEWLINE);
-    studList(student);
-    printf("Instructor number: ");
+    stdList(students);
+    printf("Student id: ");
     scanf("%d", &id);
-
-    while (v == FALSE) {
-        studentnr = studFind(student, id);
-        if (studentnr == EOF) {
+    
+    while(v == FALSE){
+        stdnr = stdFind(students, id);
+        if(stdnr == EOF){
             printf("Insert another: ");
             scanf("%d", &id);
             v = FALSE;
-        } else {
+        }else{
             v = TRUE;
         }
-
     }
-
-    do {
+    if(students[stdnr].id == 99999999){
+        printf("Instructor not found.");
+        printf("%c", NEWLINE);
+    }else{
         printf("What you want to modify?");
         printf("%c", NEWLINE);
         printf("1. Name");
@@ -232,127 +245,64 @@ Instructor studModify(Instructor student[]) {
         printf("%c", NEWLINE);
         printf("4. Birthday");
         printf("%c", NEWLINE);
-        printf("5. Category");
+        printf("5. Rev");
         printf("%c", NEWLINE);
-        printf("6. LidenseRev");
-        printf("%c", NEWLINE);
-        printf("7. Back");
+        printf("6. back");
         printf("%c", NEWLINE);
         printf("Opt: ");
         scanf("%d", &opt);
         clearInput();
 
-        switch (opt) {
-            case 1:
-                student[studentnr].person = getName(student[studentnr].person);
-                printf("Modified successfully.");
-                printf("%c", NEWLINE);
-                break;
-            case 2:
-                student[studentnr].person = getAddress(student[studentnr].person);
-                printf("Modified successfully.");
-                printf("%c", NEWLINE);
-                break;
-            case 3:
-                student[studentnr].person = getPhone(student[studentnr].person);
-                printf("Modified successfully.");
-                printf("%c", NEWLINE);
-                break;
-            case 4:
-                student[studentnr].person = getBirthday(student[studentnr].person);
-                printf("Modified successfully.");
-                printf("%c", NEWLINE);
-                break;
-            case 5:
-                student[studentnr].person = getCat(student[studentnr].person);
-                printf("Modified successfully.");
-                printf("%c", NEWLINE);
-                break;
-            case 6:
-                student[studentnr] = getLicenseRev(student[studentnr]);
-                printf("Modified successfully.");
-                printf("%c", NEWLINE);
-                break;
+        if(opt == 1){
+            students[stdnr].person = getName(students[stdnr].person);
+            printf("Modified successfully.");
+            printf("%c", NEWLINE);
+        }else if(opt == 2){
+            students[stdnr].person = getAddress(students[stdnr].person);
+            printf("Modified successfully.");
+            printf("%c", NEWLINE);
+        }else if(opt == 3){
+            students[stdnr].person = getPhone(students[stdnr].person);
+            printf("Modified successfully.");
+            printf("%c", NEWLINE);
+        }else if(opt == 4){
+            students[stdnr].person = getBirthday(students[stdnr].person);
+            printf("Modified successfully.");
+            printf("%c", NEWLINE);
+        }else if(opt == 5){
+            students[stdnr] = getRev(students[stdnr]);
+            printf("Modified successfully.");
+            printf("%c", NEWLINE);
         }
-    } while (opt != 7);
-
-    return student[studentnr];
-
+    }
+    return students[stdnr];
 }
 
-Instructor studRemove(Instructor student[]) {
+Student stdRemove(Student students[]){
     Bool v = FALSE;
-    int studentnr, id;
-
+    int stdnr, id;
+    
     printf("Student list:");
-    studList(student);
+    stdList(students);
     printf("Which to delete?: ");
     scanf("%d", &id);
     printf("%c", NEWLINE);
     clearInput();
-
-    while (v == FALSE) {
-        studentnr = studFind(student, id);
-        if (studentnr == EOF) {
+    
+    while(v == FALSE){
+        stdnr = stdFind(students, id);
+        if(stdnr == EOF){
             printf("Insert another: ");
             scanf("%d", &id);
             v = FALSE;
-        } else {
-            student[studentnr].id = STUD_INIT;
+        }else{
+            students[stdnr].id = STD_INIT;
             v = TRUE;
         }
     }
-
-    return student[studentnr];
-
-
+    
+    return students[stdnr];
 }
-
-int studentMenu(Instructor student[STD_MAX]) {
-    int stdopt, studentnr = 0;
-
-
-
-    do {
-        student[STUD_MAX] = readStudFile(student);
-        do {
-            printf("\t\t\t* Manage Student Data *\n\n");
-            printf("\t\t\t |------------------|\n");
-            printf("\t\t\t | 1-Add |\n");
-            printf("\t\t\t | 2-Modify |\n");
-            printf("\t\t\t | 3-List |\n");
-            printf("\t\t\t | 4-Remove |\n");
-            printf("\t\t\t | 5-Back |\n");
-            printf("\t\t\t |------------------|\n");
-            printf("Select an option: ");
-            scanf("%d", &stdopt);
-        } while (stdopt > 5 || stdopt < 1);
-        printf("Option?: ");
-        scanf("%d", &stdopt);
-        switch (stdopt) {
-            case 1:
-                studentnr = studVerifyPos(student);
-                if (studentnr != EOF) {
-                    studAdd(student, studentnr);
-                    saveStudFile(student);
-                }
-                break;
-            case 2:
-                studModify(student);
-                break;
-            case 3:
-                studList(student);
-                break;
-            case 4:
-                break;
-            case 5:
-                break;
-        }
-    } while (stdopt != 5);
-
-    return stdopt;
-}
-
 
 #ifdef	__cplusplus
 extern "C" {
@@ -365,5 +315,5 @@ extern "C" {
 }
 #endif
 
-#endif	/* STUDENTS_H */
+#endif	/* STUDENT_H */
 
