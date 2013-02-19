@@ -34,12 +34,12 @@ Instructor getSal(Instructor instructor){
     return instructor;
 }
 
-int insVerifyPos(Instructor instructor[], int find){
+int insVerifyPos(Instructor instructors[], int find){
     Bool v = FALSE;
     int pos = 0;
     
     while(v == FALSE && pos < INS_MAX){
-        if(instructor[pos].license_nr == find){
+        if(instructors[pos].license_nr == find){
             v = TRUE;
             return pos;
         }else{
@@ -55,12 +55,12 @@ int insVerifyPos(Instructor instructor[], int find){
     } return EOF;
 }
 
-int insFind(Instructor instructor[], int find){
+int insFind(Instructor instructors[], int find){
     Bool v = FALSE;
     int pos = 0;
     
     while(v == FALSE && pos < INS_MAX){
-        if(instructor[pos].license_nr == find){
+        if(instructors[pos].license_nr == find){
             v = TRUE;
             return pos;
         }else{
@@ -74,55 +74,55 @@ int insFind(Instructor instructor[], int find){
     } return EOF;
 }
 
-Instructor initInsFile(Instructor instructor[]) {
+Instructor initInsFile(Instructor instructors[]) {
     unsigned short int i;
     
     for(i = 0; i < INS_MAX; i++){
-        instructor[i].license_nr = INS_INIT;
+        instructors[i].license_nr = INS_INIT;
     }
-    return instructor[INS_MAX];
+    return instructors[INS_MAX];
 }
 
-Instructor saveInsFile(Instructor instructor[]){
+Instructor saveInsFile(Instructor instructors[]){
     int frtn;
     
     FILE *pIns = fopen("instructors","w");
     if(pIns == (FILE *) NULL){
         printf("File does not exist.");
     }else{
-        frtn = fwrite(instructor, sizeof(Instructor), INS_MAX, pIns);
+        frtn = fwrite(instructors, sizeof(Instructor), INS_MAX, pIns);
     }
-    return instructor[INS_MAX];
+    return instructors[INS_MAX];
 }
 
-Instructor createInsFile(Instructor instructor[]){
+Instructor createInsFile(Instructor instructors[]){
     int frtn;
     
     FILE *pIns = fopen("instructors","w");
     if(pIns == (FILE *) NULL){
         printf("Failed to create file");
     }else{
-        frtn = fwrite(instructor, sizeof(Instructor), INS_MAX, pIns);
+        frtn = fwrite(instructors, sizeof(Instructor), INS_MAX, pIns);
     }
-    return instructor[INS_MAX];
+    return instructors[INS_MAX];
 }
 
-Instructor readInsFile(Instructor instructor[]){
+Instructor readInsFile(Instructor instructors[]){
     int i;
     
     FILE *pIns = fopen("instructors","r");
     if(pIns == (FILE *) NULL){
         puts("File does not exist.");
         puts("Creating file...");
-        createInsFile(instructor);
-        instructor[INS_MAX] = initInsFile(instructor);
+        createInsFile(instructors);
+        instructors[INS_MAX] = initInsFile(instructors);
         puts("File created.");
-        readInsFile(instructor);
+        readInsFile(instructors);
         for(i=0; i > INS_MAX; i++){
-            printf("%d: %c", i, instructor[i].license_nr);
+            printf("%d: %c", i, instructors[i].license_nr);
         }
     }else{
-        fread(instructor, sizeof(Instructor), INS_MAX, pIns);
+        fread(instructors, sizeof(Instructor), INS_MAX, pIns);
         fclose(pIns);
     }
 }
@@ -140,49 +140,49 @@ void insMenu(){
     printf("%c", NEWLINE);
 }
 
-Instructor insAdd(Instructor instructor[], int insnr){
+Instructor insAdd(Instructor instructors[], int insnr){
 
-    instructor[insnr] = getLicnr(instructor[insnr]);
-    instructor[insnr].person = getName(instructor[insnr].person);
-    instructor[insnr].person = getAddress(instructor[insnr].person);
-    instructor[insnr].person = getPhone(instructor[insnr].person);
-    instructor[insnr].person = getBirthday(instructor[insnr].person);
-    instructor[insnr].person = getCat(instructor[insnr].person);
-    instructor[insnr] = getSal(instructor[insnr]);
+    instructors[insnr] = getLicnr(instructors[insnr]);
+    instructors[insnr].person = getName(instructors[insnr].person);
+    instructors[insnr].person = getAddress(instructors[insnr].person);
+    instructors[insnr].person = getPhone(instructors[insnr].person);
+    instructors[insnr].person = getBirthday(instructors[insnr].person);
+    instructors[insnr].person = getCat(instructors[insnr].person);
+    instructors[insnr] = getSal(instructors[insnr]);
     printf("Instructor added successfully.");
     printf("%c", NEWLINE);
     
-    return instructor[insnr];
+    return instructors[insnr];
 }
 
-void insList(Instructor instructor[]){
+void insList(Instructor instructors[]){
     int i;
     
     printf("*Instructors List*");
     printf("%c", NEWLINE);
     for(i=0; i < INS_MAX; i++){
-        if(instructor[i].license_nr == 9999){
-            printf("%hu", instructor[i].license_nr);
+        if(instructors[i].license_nr == 9999){
+            printf("%hu", instructors[i].license_nr);
             printf("%c", NEWLINE);
         }else{
-            printf("%hu - %s", instructor[i].license_nr, instructor[i].person.name);
+            printf("%hu - %s", instructors[i].license_nr, instructors[i].person.name);
             printf("%c", NEWLINE);
         }
     }
 }
 
-Instructor insModify(Instructor instructor[]){
+Instructor insModify(Instructor instructors[]){
     Bool v = FALSE;
     int opt, lic, insnr;
     
     printf("Which u want to modify?");
     printf("%c", NEWLINE);
-    insList(instructor);
+    insList(instructors);
     printf("Instructor number: ");
     scanf("%d", &lic);
     
     while(v == FALSE){
-        insnr = insFind(instructor, lic);
+        insnr = insFind(instructors, lic);
         if(insnr == EOF){
             printf("Insert another: ");
             scanf("%d", &lic);
@@ -211,53 +211,53 @@ Instructor insModify(Instructor instructor[]){
     clearInput();
     
     if(opt == 1){
-        instructor[insnr].person = getName(instructor[insnr].person);
+        instructors[insnr].person = getName(instructors[insnr].person);
         printf("Modified successfully.");
         printf("%c", NEWLINE);
     }else if(opt == 2){
-        instructor[insnr].person = getAddress(instructor[insnr].person);
+        instructors[insnr].person = getAddress(instructors[insnr].person);
         printf("Modified successfully.");
         printf("%c", NEWLINE);
     }else if(opt == 3){
-        instructor[insnr].person = getPhone(instructor[insnr].person);
+        instructors[insnr].person = getPhone(instructors[insnr].person);
         printf("Modified successfully.");
         printf("%c", NEWLINE);
     }else if(opt == 4){
-        instructor[insnr].person = getBirthday(instructor[insnr].person);
+        instructors[insnr].person = getBirthday(instructors[insnr].person);
         printf("Modified successfully.");
         printf("%c", NEWLINE);
     }else if(opt == 5){
-        instructor[insnr] = getSal(instructor[insnr]);
+        instructors[insnr] = getSal(instructors[insnr]);
         printf("Modified successfully.");
         printf("%c", NEWLINE);
     }
-    return instructor[insnr];
+    return instructors[insnr];
 }
 
-Instructor insRemove(Instructor instructor[]){
+Instructor insRemove(Instructor instructors[]){
     Bool v = FALSE;
     int insnr, lic;
     
     printf("Instructor list:");
-    insList(instructor);
+    insList(instructors);
     printf("Which to delete?: ");
     scanf("%d", &lic);
     printf("%c", NEWLINE);
     clearInput();
     
     while(v == FALSE){
-        insnr = insFind(instructor, lic);
+        insnr = insFind(instructors, lic);
         if(insnr == EOF){
             printf("Insert another: ");
             scanf("%d", &lic);
             v = FALSE;
         }else{
-            instructor[insnr].license_nr = INS_INIT;
+            instructors[insnr].license_nr = INS_INIT;
             v = TRUE;
         }
     }
     
-    return instructor[insnr];
+    return instructors[insnr];
 }
 
 #ifdef	__cplusplus
