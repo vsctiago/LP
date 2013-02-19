@@ -150,7 +150,7 @@ Student createStdFile(Student students[]){
 Student readStdFile(Student students[]){
     int i;
     
-    FILE *pStd = fopen("instructors","r");
+    FILE *pStd = fopen("students","r");
     if(pStd == (FILE *) NULL){
         puts("File does not exist.");
         puts("Creating file...");
