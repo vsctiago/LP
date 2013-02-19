@@ -7,6 +7,19 @@
 
 #ifndef SCHEDULE_H
 #define	SCHEDULE_H
+#include <stdio.h>
+#include <stdlib.h>
+#include "Instructors.h"
+#include "students.h"
+#define SCH_LINE 7
+#define SCH_COL 10
+
+typedef struct {
+    Instructor inssch;
+    Student stdsch;
+} Schedule;
+
+
 
 #ifdef	__cplusplus
 extern "C" {

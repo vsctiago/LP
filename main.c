@@ -7,8 +7,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "Instructors.h"
-#include "students.h"
+#include "schedule.h"
 
 /*
  * 
@@ -17,6 +16,7 @@ int main(int argc, char** argv) {
     int opt, opti, insnr = 0, stdnr = 0;
     Instructor instructors[INS_MAX];
     Student students[STD_MAX];
+    Schedule schedule[SCH_LINE][SCH_COL];
     
     do{
         menu();

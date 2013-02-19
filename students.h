@@ -8,6 +8,8 @@
 #ifndef STUDENT_H
 #define	STUDENT_H
 #include "person.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 //:TODO: changed INS_MAX to test easier
 #define STD_MAX 5
