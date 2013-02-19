@@ -198,11 +198,11 @@ void stdList(Student students[]){
     printf("*Students List*");
     printf("%c", NEWLINE);
     for(i=0; i < STD_MAX; i++){
-        if(students[i].id == 99999999){
-            printf("%hu", students[i].id);
+        if(students[i].id == STD_INIT){
+            printf("%lu", students[i].id);
             printf("%c", NEWLINE);
         }else{
-            printf("%hu - %s", students[i].id, students[i].person.name);
+            printf("%lu - %s", students[i].id, students[i].person.name);
             printf("%c", NEWLINE);
         }
     }
