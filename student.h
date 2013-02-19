@@ -1,17 +1,15 @@
 /* 
- * File:   Instructor.h
+ * File:   student.h
  * Author: psycku
  *
- * Created on 3 de Fevereiro de 2013, 17:15
+ * Created on 19 de Fevereiro de 2013, 13:53
  */
 
-#ifndef INSTRUCTOR_H
-#define	INSTRUCTOR_H
-#include <stdio.h>
-#include <stdlib.h>
+#ifndef STUDENT_H
+#define	STUDENT_H
 #include "person.h"
 //:TODO: changed INS_MAX to test easier
-#define INS_MAX 2
+#define STD_MAX 2
 #define INS_INIT 9999
 
 //:CONFIRM: if unsigned float works.
@@ -19,30 +17,30 @@ typedef struct {
     unsigned short license_nr;
     Person person;
     float salary;
-} Instructor;
+} Student;
 
-Instructor getLicnr(Instructor instructor){
+Student getId(Student student){
     Bool v = FALSE;
     
     printf("License Nr: ");
-    scanf("%hu", &instructor.license_nr);
+    scanf("%hu", &student.license_nr);
     clearInput();
     
     while(v == FALSE){
-        if(instructor.license_nr > 1000 && instructor.license_nr < 9999){
+        if(student.license_nr > 1000 && student.license_nr < 9999){
             v = TRUE;
         }else{
             v = FALSE;
             printf("Insert a valid license number:");
-            scanf("%hu", &instructor.license_nr);
+            scanf("%hu", &student.license_nr);
             clearInput();
         }
     }
     
-    return instructor;
+    return student;
 }
 
-Instructor getSal(Instructor instructor){
+Student getSal(Student instructor){
     Bool v = FALSE;
     
     printf("Salary: ");
@@ -61,11 +59,11 @@ Instructor getSal(Instructor instructor){
     return instructor;
 }
 
-int insVerifyPos(Instructor instructors[], int find){
+int insVerifyPos(Student instructors[], int find){
     Bool v = FALSE;
     int pos = 0;
     
-    while(v == FALSE && pos < INS_MAX){
+    while(v == FALSE && pos < STD_MAX){
         if(instructors[pos].license_nr == find){
             v = TRUE;
             return pos;
@@ -74,7 +72,7 @@ int insVerifyPos(Instructor instructors[], int find){
             pos++;
         }
     }
-    if(v == FALSE && pos == INS_MAX){
+    if(v == FALSE && pos == STD_MAX){
         printf("File is full.");
         printf("%c", NEWLINE);
         printf("Can't add more.");
@@ -82,11 +80,11 @@ int insVerifyPos(Instructor instructors[], int find){
     } return EOF;
 }
 
-int insFind(Instructor instructors[], int find){
+int insFind(Student instructors[], int find){
     Bool v = FALSE;
     int pos = 0;
     
-    while(v == FALSE && pos < INS_MAX){
+    while(v == FALSE && pos < STD_MAX){
         if(instructors[pos].license_nr == find){
             v = TRUE;
             return pos;
@@ -95,46 +93,46 @@ int insFind(Instructor instructors[], int find){
             pos++;
         }
     }
-    if(v == FALSE && pos == INS_MAX){
+    if(v == FALSE && pos == STD_MAX){
         printf("Instructor not found.");
         printf("%c", NEWLINE);
     } return EOF;
 }
 
-Instructor initInsFile(Instructor instructors[]) {
+Student initInsFile(Student instructors[]) {
     unsigned short int i;
     
-    for(i = 0; i < INS_MAX; i++){
+    for(i = 0; i < STD_MAX; i++){
         instructors[i].license_nr = INS_INIT;
     }
-    return instructors[INS_MAX];
+    return instructors[STD_MAX];
 }
 
-Instructor saveInsFile(Instructor instructors[]){
+Student saveInsFile(Student instructors[]){
     int frtn;
     
     FILE *pIns = fopen("instructors","w");
     if(pIns == (FILE *) NULL){
         printf("File does not exist.");
     }else{
-        frtn = fwrite(instructors, sizeof(Instructor), INS_MAX, pIns);
+        frtn = fwrite(instructors, sizeof(Student), STD_MAX, pIns);
     }
-    return instructors[INS_MAX];
+    return instructors[STD_MAX];
 }
 
-Instructor createInsFile(Instructor instructors[]){
+Student createInsFile(Student instructors[]){
     int frtn;
     
     FILE *pIns = fopen("instructors","w");
     if(pIns == (FILE *) NULL){
         printf("Failed to create file");
     }else{
-        frtn = fwrite(instructors, sizeof(Instructor), INS_MAX, pIns);
+        frtn = fwrite(instructors, sizeof(Student), STD_MAX, pIns);
     }
-    return instructors[INS_MAX];
+    return instructors[STD_MAX];
 }
 
-Instructor readInsFile(Instructor instructors[]){
+Student readInsFile(Student instructors[]){
     int i;
     
     FILE *pIns = fopen("instructors","r");
@@ -142,14 +140,14 @@ Instructor readInsFile(Instructor instructors[]){
         puts("File does not exist.");
         puts("Creating file...");
         createInsFile(instructors);
-        instructors[INS_MAX] = initInsFile(instructors);
+        instructors[STD_MAX] = initInsFile(instructors);
         puts("File created.");
         readInsFile(instructors);
-        for(i=0; i > INS_MAX; i++){
+        for(i=0; i > STD_MAX; i++){
             printf("%d: %c", i, instructors[i].license_nr);
         }
     }else{
-        fread(instructors, sizeof(Instructor), INS_MAX, pIns);
+        fread(instructors, sizeof(Student), STD_MAX, pIns);
         fclose(pIns);
     }
 }
@@ -167,7 +165,7 @@ void insMenu(){
     printf("%c", NEWLINE);
 }
 
-Instructor insAdd(Instructor instructors[], int insnr){
+Student insAdd(Student instructors[], int insnr){
 
     instructors[insnr] = getLicnr(instructors[insnr]);
     instructors[insnr].person = getName(instructors[insnr].person);
@@ -182,12 +180,12 @@ Instructor insAdd(Instructor instructors[], int insnr){
     return instructors[insnr];
 }
 
-void insList(Instructor instructors[]){
+void insList(Student instructors[]){
     int i;
     
     printf("*Instructors List*");
     printf("%c", NEWLINE);
-    for(i=0; i < INS_MAX; i++){
+    for(i=0; i < STD_MAX; i++){
         if(instructors[i].license_nr == 9999){
             printf("%hu", instructors[i].license_nr);
             printf("%c", NEWLINE);
@@ -198,7 +196,7 @@ void insList(Instructor instructors[]){
     }
 }
 
-Instructor insModify(Instructor instructors[]){
+Student insModify(Student instructors[]){
     Bool v = FALSE;
     int opt, lic, insnr;
     
@@ -265,7 +263,7 @@ Instructor insModify(Instructor instructors[]){
     return instructors[insnr];
 }
 
-Instructor insRemove(Instructor instructors[]){
+Student insRemove(Student instructors[]){
     Bool v = FALSE;
     int insnr, lic;
     
@@ -302,5 +300,5 @@ extern "C" {
 }
 #endif
 
-#endif	/* INSTRUCTOR_H */
+#endif	/* STUDENT_H */
 

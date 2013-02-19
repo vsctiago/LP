@@ -7,14 +7,14 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "Instructor.h"
+#include "Instructors.h"
 
 /*
  * 
  */
 int main(int argc, char** argv) {
     int opt, opti, insnr = 0;
-    Instructor instructors[INS_MAX];
+    Student instructors[INS_MAX];
     
     do{
         menu();
