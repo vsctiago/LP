@@ -34,9 +34,9 @@ typedef struct {
     unsigned char id[ID_LENGTH];
     Person person;
     LicenseRev licenserev;
-} Student;
+} Instructor;
 
-Student getId(Student student) {
+Instructor getId(Instructor student) {
     Bool v = FALSE;
 
     clearInput();
@@ -45,7 +45,7 @@ Student getId(Student student) {
     return student;
 }
 
-Student getLicenseRev(Student student) {
+Instructor getLicenseRev(Instructor student) {
     char lr;
     Bool v = FALSE;
 
@@ -70,7 +70,7 @@ Student getLicenseRev(Student student) {
     return student;
 }
 
-int studVerifyPos(Student student[], int find) {
+int studVerifyPos(Instructor student[], int find) {
     Bool v = FALSE;
     int pos = 0;
 
@@ -92,7 +92,7 @@ int studVerifyPos(Student student[], int find) {
     return EOF;
 }
 
-int studFind(Student student[], int find) {
+int studFind(Instructor student[], int find) {
     Bool v = FALSE;
     int pos = 0;
 
@@ -114,7 +114,7 @@ int studFind(Student student[], int find) {
 
 //:TODO: Must do validations for licenserev
 
-Student initStudFile(Student student[]) {
+Instructor initStudFile(Instructor student[]) {
     unsigned short int i;
 
     for (i = 0; i < STD_MAX; i++) {
@@ -123,19 +123,19 @@ Student initStudFile(Student student[]) {
     return student[STD_MAX];
 }
 
-Student saveStudFile(Student student[]) {
+Instructor saveStudFile(Instructor student[]) {
     int frtn;
 
     FILE *pStudents = fopen("students", "w");
     if (pStudents == (FILE *) NULL) {
         printf("File does not exist.");
     } else {
-        frtn = fwrite(student, sizeof (Student), STD_MAX, pStudents);
+        frtn = fwrite(student, sizeof (Instructor), STD_MAX, pStudents);
     }
     return student[STD_MAX];
 }
 
-Student readStudFile(Student student[]) {
+Instructor readStudFile(Instructor student[]) {
     int frtn, i;
 
     FILE *pStudents = fopen("students", "r");
@@ -150,14 +150,14 @@ Student readStudFile(Student student[]) {
             printf("%d: %c", i, student[i].id);
         }
     } else {
-        fread(student, sizeof (Student), STD_MAX, pStudents);
+        fread(student, sizeof (Instructor), STD_MAX, pStudents);
         fclose(pStudents);
     }
 
     return student[STD_MAX];
 }
 
-int searchStudent(Student student[], unsigned int sn) {
+int searchStudent(Instructor student[], unsigned int sn) {
     int pos = 0;
 
     while ((pos < STD_MAX) && (sn != student[pos].id)) {
@@ -170,7 +170,7 @@ int searchStudent(Student student[], unsigned int sn) {
     }
 }
 
-Student studAdd(Student student[], int studentnr) {
+Instructor studAdd(Instructor student[], int studentnr) {
     student[studentnr] = getId(student[studentnr]);
     student[studentnr].person = getName(student[studentnr].person);
     student[studentnr].person = getAddress(student[studentnr].person);
@@ -183,7 +183,7 @@ Student studAdd(Student student[], int studentnr) {
     return student[studentnr];
 }
 
-void studList(Student student[]) {
+void studList(Instructor student[]) {
     int i;
 
     printf("*Instructors List*");
@@ -199,7 +199,7 @@ void studList(Student student[]) {
     }
 }
 
-Student studModify(Student student[]) {
+Instructor studModify(Instructor student[]) {
     Bool v = FALSE;
     int opt, id, studentnr;
 
@@ -280,7 +280,7 @@ Student studModify(Student student[]) {
 
 }
 
-Student studRemove(Student student[]) {
+Instructor studRemove(Instructor student[]) {
     Bool v = FALSE;
     int studentnr, id;
 
@@ -308,7 +308,7 @@ Student studRemove(Student student[]) {
 
 }
 
-int studentMenu(Student student[STD_MAX]) {
+int studentMenu(Instructor student[STD_MAX]) {
     int stdopt, studentnr = 0;
 
 

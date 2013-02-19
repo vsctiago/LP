@@ -13,8 +13,8 @@
  * 
  */
 int main(int argc, char** argv) {
-    int opt, opti, insnr = 0;
-    Student instructors[INS_MAX];
+    int opt, opti, insnr = 0, stdnr = 0;
+    Instructor instructors[INS_MAX];
     
     do{
         menu();

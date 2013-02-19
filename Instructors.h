@@ -19,9 +19,9 @@ typedef struct {
     unsigned short license_nr;
     Person person;
     float salary;
-} Student;
+} Instructor;
 
-Student getLicnr(Student instructor){
+Instructor getLicnr(Instructor instructor){
     Bool v = FALSE;
     
     printf("License Nr: ");
@@ -42,7 +42,7 @@ Student getLicnr(Student instructor){
     return instructor;
 }
 
-Student getSal(Student instructor){
+Instructor getSal(Instructor instructor){
     Bool v = FALSE;
     
     printf("Salary: ");
@@ -61,7 +61,7 @@ Student getSal(Student instructor){
     return instructor;
 }
 
-int insVerifyPos(Student instructors[], int find){
+int insVerifyPos(Instructor instructors[], int find){
     Bool v = FALSE;
     int pos = 0;
     
@@ -82,7 +82,7 @@ int insVerifyPos(Student instructors[], int find){
     } return EOF;
 }
 
-int insFind(Student instructors[], int find){
+int insFind(Instructor instructors[], int find){
     Bool v = FALSE;
     int pos = 0;
     
@@ -101,7 +101,7 @@ int insFind(Student instructors[], int find){
     } return EOF;
 }
 
-Student initInsFile(Student instructors[]) {
+Instructor initInsFile(Instructor instructors[]) {
     unsigned short int i;
     
     for(i = 0; i < INS_MAX; i++){
@@ -110,31 +110,31 @@ Student initInsFile(Student instructors[]) {
     return instructors[INS_MAX];
 }
 
-Student saveInsFile(Student instructors[]){
+Instructor saveInsFile(Instructor instructors[]){
     int frtn;
     
     FILE *pIns = fopen("instructors","w");
     if(pIns == (FILE *) NULL){
         printf("File does not exist.");
     }else{
-        frtn = fwrite(instructors, sizeof(Student), INS_MAX, pIns);
+        frtn = fwrite(instructors, sizeof(Instructor), INS_MAX, pIns);
     }
     return instructors[INS_MAX];
 }
 
-Student createInsFile(Student instructors[]){
+Instructor createInsFile(Instructor instructors[]){
     int frtn;
     
     FILE *pIns = fopen("instructors","w");
     if(pIns == (FILE *) NULL){
         printf("Failed to create file");
     }else{
-        frtn = fwrite(instructors, sizeof(Student), INS_MAX, pIns);
+        frtn = fwrite(instructors, sizeof(Instructor), INS_MAX, pIns);
     }
     return instructors[INS_MAX];
 }
 
-Student readInsFile(Student instructors[]){
+Instructor readInsFile(Instructor instructors[]){
     int i;
     
     FILE *pIns = fopen("instructors","r");
@@ -149,7 +149,7 @@ Student readInsFile(Student instructors[]){
             printf("%d: %c", i, instructors[i].license_nr);
         }
     }else{
-        fread(instructors, sizeof(Student), INS_MAX, pIns);
+        fread(instructors, sizeof(Instructor), INS_MAX, pIns);
         fclose(pIns);
     }
 }
@@ -167,7 +167,7 @@ void insMenu(){
     printf("%c", NEWLINE);
 }
 
-Student insAdd(Student instructors[], int insnr){
+Instructor insAdd(Instructor instructors[], int insnr){
 
     instructors[insnr] = getLicnr(instructors[insnr]);
     instructors[insnr].person = getName(instructors[insnr].person);
@@ -182,7 +182,7 @@ Student insAdd(Student instructors[], int insnr){
     return instructors[insnr];
 }
 
-void insList(Student instructors[]){
+void insList(Instructor instructors[]){
     int i;
     
     printf("*Instructors List*");
@@ -198,7 +198,7 @@ void insList(Student instructors[]){
     }
 }
 
-Student insModify(Student instructors[]){
+Instructor insModify(Instructor instructors[]){
     Bool v = FALSE;
     int opt, lic, insnr;
     
@@ -265,7 +265,7 @@ Student insModify(Student instructors[]){
     return instructors[insnr];
 }
 
-Student insRemove(Student instructors[]){
+Instructor insRemove(Instructor instructors[]){
     Bool v = FALSE;
     int insnr, lic;
     

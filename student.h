@@ -10,29 +10,34 @@
 #include "person.h"
 //:TODO: changed INS_MAX to test easier
 #define STD_MAX 2
-#define INS_INIT 9999
+#define STD_INIT 99999999
 
 //:CONFIRM: if unsigned float works.
+
+typedef enum {
+    Y = 'Y', N = 'N'
+} Rev;
+
 typedef struct {
-    unsigned short license_nr;
+    unsigned long id;
     Person person;
-    float salary;
+    Rev rev;
 } Student;
 
 Student getId(Student student){
     Bool v = FALSE;
     
-    printf("License Nr: ");
-    scanf("%hu", &student.license_nr);
+    printf("Student ID: ");
+    scanf("%lu", &student.id);
     clearInput();
     
     while(v == FALSE){
-        if(student.license_nr > 1000 && student.license_nr < 9999){
+        if(student.id > 10000000 && student.id < 99999999){
             v = TRUE;
         }else{
             v = FALSE;
-            printf("Insert a valid license number:");
-            scanf("%hu", &student.license_nr);
+            printf("Insert a valid ID:");
+            scanf("%lu", &student.id);
             clearInput();
         }
     }
@@ -40,23 +45,32 @@ Student getId(Student student){
     return student;
 }
 
-Student getSal(Student instructor){
+Student getRev(Student student){
     Bool v = FALSE;
+    char rev;
     
     printf("Salary: ");
-    scanf("%f", &instructor.salary);
+    scanf("%f", &student.rev);
     
-    while(v == FALSE){
-        if(instructor.salary >= 500 && instructor.salary <= 5000){
+    do {
+        clearInput();
+        printf("Revalidate driver license?(Y,N): ");
+        scanf("%c", &rev);
+        if(rev == 'y' || rev == 'Y') {
+            student.rev = Y;
             v = TRUE;
-        }else{
+        } else if (rev == 'n' || rev == 'N') {
+            student.rev = N;
+            v = TRUE;
+        } else {
+            printf("Invalid input.");
+            printf("%c", NEWLINE);
+            printf("Insert a valid answer(Y,N)!");
+            printf("%c", NEWLINE);
             v = FALSE;
-            printf("Insert a valid salary(Range 500-5000): ");
-            scanf("%hu", &instructor.salary);
-            clearInput();
         }
-    }
-    return instructor;
+    } while (v == FALSE);
+    return student;
 }
 
 int insVerifyPos(Student instructors[], int find){
@@ -64,7 +78,7 @@ int insVerifyPos(Student instructors[], int find){
     int pos = 0;
     
     while(v == FALSE && pos < STD_MAX){
-        if(instructors[pos].license_nr == find){
+        if(instructors[pos].id == find){
             v = TRUE;
             return pos;
         }else{
@@ -80,12 +94,12 @@ int insVerifyPos(Student instructors[], int find){
     } return EOF;
 }
 
-int insFind(Student instructors[], int find){
+int insFind(Instructor instructors[], int find){
     Bool v = FALSE;
     int pos = 0;
     
     while(v == FALSE && pos < STD_MAX){
-        if(instructors[pos].license_nr == find){
+        if(instructors[pos].id == find){
             v = TRUE;
             return pos;
         }else{
@@ -99,40 +113,40 @@ int insFind(Student instructors[], int find){
     } return EOF;
 }
 
-Student initInsFile(Student instructors[]) {
+Instructor initInsFile(Instructor instructors[]) {
     unsigned short int i;
     
     for(i = 0; i < STD_MAX; i++){
-        instructors[i].license_nr = INS_INIT;
+        instructors[i].id = INS_INIT;
     }
     return instructors[STD_MAX];
 }
 
-Student saveInsFile(Student instructors[]){
+Instructor saveInsFile(Instructor instructors[]){
     int frtn;
     
     FILE *pIns = fopen("instructors","w");
     if(pIns == (FILE *) NULL){
         printf("File does not exist.");
     }else{
-        frtn = fwrite(instructors, sizeof(Student), STD_MAX, pIns);
+        frtn = fwrite(instructors, sizeof(Instructor), STD_MAX, pIns);
     }
     return instructors[STD_MAX];
 }
 
-Student createInsFile(Student instructors[]){
+Instructor createInsFile(Instructor instructors[]){
     int frtn;
     
     FILE *pIns = fopen("instructors","w");
     if(pIns == (FILE *) NULL){
         printf("Failed to create file");
     }else{
-        frtn = fwrite(instructors, sizeof(Student), STD_MAX, pIns);
+        frtn = fwrite(instructors, sizeof(Instructor), STD_MAX, pIns);
     }
     return instructors[STD_MAX];
 }
 
-Student readInsFile(Student instructors[]){
+Instructor readInsFile(Instructor instructors[]){
     int i;
     
     FILE *pIns = fopen("instructors","r");
@@ -144,10 +158,10 @@ Student readInsFile(Student instructors[]){
         puts("File created.");
         readInsFile(instructors);
         for(i=0; i > STD_MAX; i++){
-            printf("%d: %c", i, instructors[i].license_nr);
+            printf("%d: %c", i, instructors[i].id);
         }
     }else{
-        fread(instructors, sizeof(Student), STD_MAX, pIns);
+        fread(instructors, sizeof(Instructor), STD_MAX, pIns);
         fclose(pIns);
     }
 }
@@ -165,38 +179,38 @@ void insMenu(){
     printf("%c", NEWLINE);
 }
 
-Student insAdd(Student instructors[], int insnr){
+Student insAdd(Student students[], int stdnr){
 
-    instructors[insnr] = getLicnr(instructors[insnr]);
-    instructors[insnr].person = getName(instructors[insnr].person);
-    instructors[insnr].person = getAddress(instructors[insnr].person);
-    instructors[insnr].person = getPhone(instructors[insnr].person);
-    instructors[insnr].person = getBirthday(instructors[insnr].person);
-    instructors[insnr].person = getCat(instructors[insnr].person);
-    instructors[insnr] = getSal(instructors[insnr]);
+    students[stdnr] = getId(students[stdnr]);
+    students[stdnr].person = getName(students[stdnr].person);
+    students[stdnr].person = getAddress(students[stdnr].person);
+    students[stdnr].person = getPhone(students[stdnr].person);
+    students[stdnr].person = getBirthday(students[stdnr].person);
+    students[stdnr].person = getCat(students[stdnr].person);
+    students[stdnr] = getRev(students[stdnr]);
     printf("Instructor added successfully.");
     printf("%c", NEWLINE);
     
-    return instructors[insnr];
+    return students[stdnr];
 }
 
-void insList(Student instructors[]){
+void insList(Student students[]){
     int i;
     
     printf("*Instructors List*");
     printf("%c", NEWLINE);
     for(i=0; i < STD_MAX; i++){
-        if(instructors[i].license_nr == 9999){
-            printf("%hu", instructors[i].license_nr);
+        if(students[i].id == 99999999){
+            printf("%hu", students[i].id);
             printf("%c", NEWLINE);
         }else{
-            printf("%hu - %s", instructors[i].license_nr, instructors[i].person.name);
+            printf("%hu - %s", students[i].id, students[i].person.name);
             printf("%c", NEWLINE);
         }
     }
 }
 
-Student insModify(Student instructors[]){
+Instructor insModify(Instructor instructors[]){
     Bool v = FALSE;
     int opt, lic, insnr;
     
@@ -216,7 +230,7 @@ Student insModify(Student instructors[]){
             v = TRUE;
         }
     }
-    if(instructors[insnr].license_nr == 9999){
+    if(instructors[insnr].id == 9999){
         printf("Instructor not found.");
         printf("%c", NEWLINE);
     }else{
@@ -263,7 +277,7 @@ Student insModify(Student instructors[]){
     return instructors[insnr];
 }
 
-Student insRemove(Student instructors[]){
+Instructor insRemove(Instructor instructors[]){
     Bool v = FALSE;
     int insnr, lic;
     
@@ -281,7 +295,7 @@ Student insRemove(Student instructors[]){
             scanf("%d", &lic);
             v = FALSE;
         }else{
-            instructors[insnr].license_nr = INS_INIT;
+            instructors[insnr].id = INS_INIT;
             v = TRUE;
         }
     }
