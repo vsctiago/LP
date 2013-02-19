@@ -20,13 +20,18 @@
 typedef enum {
     Y = 'Y', N = 'N'
 } Rev;
-
+/**
+ */
 typedef struct {
     unsigned long id;
     Person person;
     Rev rev;
 } Student;
-
+/**
+ * 
+ * @param student
+ * @return 
+ */
 Student getId(Student student){
     Bool v = FALSE;
     
@@ -47,7 +52,11 @@ Student getId(Student student){
     
     return student;
 }
-
+/**
+ * 
+ * @param student
+ * @return 
+ */
 Student getRev(Student student){
     Bool v = FALSE;
     char rev;
@@ -72,7 +81,12 @@ Student getRev(Student student){
     } while (v == FALSE);
     return student;
 }
-
+/**
+ * 
+ * @param students
+ * @param find
+ * @return 
+ */
 int stdVerifyPos(Student students[], int find){
     Bool v = FALSE;
     int pos = 0;
@@ -93,7 +107,12 @@ int stdVerifyPos(Student students[], int find){
         printf("%c", NEWLINE);
     } return EOF;
 }
-
+/**
+ * 
+ * @param students
+ * @param find
+ * @return 
+ */
 int stdFind(Student students[], int find){
     Bool v = FALSE;
     int pos = 0;
@@ -112,7 +131,11 @@ int stdFind(Student students[], int find){
         printf("%c", NEWLINE);
     } return EOF;
 }
-
+/**
+ * 
+ * @param students
+ * @return 
+ */
 Student initStdFile(Student students[]) {
     unsigned short int i;
     
@@ -121,7 +144,11 @@ Student initStdFile(Student students[]) {
     }
     return students[STD_MAX];
 }
-
+/**
+ * 
+ * @param students
+ * @return 
+ */
 Student saveStdFile(Student students[]){
     int frtn;
     
@@ -133,7 +160,11 @@ Student saveStdFile(Student students[]){
     }
     return students[STD_MAX];
 }
-
+/**
+ * 
+ * @param students
+ * @return 
+ */
 Student createStdFile(Student students[]){
     int frtn;
     
@@ -145,7 +176,11 @@ Student createStdFile(Student students[]){
     }
     return students[STD_MAX];
 }
-
+/**
+ * 
+ * @param students
+ * @return 
+ */
 Student readStdFile(Student students[]){
     int i;
     
@@ -165,7 +200,9 @@ Student readStdFile(Student students[]){
         fclose(pStd);
     }
 }
-
+/**
+ * 
+ */
 void stdMenu(){
     printf("1. Add");
     printf("%c", NEWLINE);
@@ -178,7 +215,12 @@ void stdMenu(){
     printf("5. Back");
     printf("%c", NEWLINE);
 }
-
+/**
+ * 
+ * @param students
+ * @param stdnr
+ * @return 
+ */
 Student stdAdd(Student students[], int stdnr){
 
     students[stdnr] = getId(students[stdnr]);
@@ -193,7 +235,10 @@ Student stdAdd(Student students[], int stdnr){
     
     return students[stdnr];
 }
-
+/**
+ * 
+ * @param students
+ */
 void stdList(Student students[]){
     int i;
     
@@ -209,7 +254,11 @@ void stdList(Student students[]){
         }
     }
 }
-
+/**
+ * 
+ * @param students
+ * @return 
+ */
 Student stdModify(Student students[]){
     Bool v = FALSE;
     int opt, id, stdnr;
@@ -276,7 +325,11 @@ Student stdModify(Student students[]){
     }
     return students[stdnr];
 }
-
+/**
+ * 
+ * @param students
+ * @return 
+ */
 Student stdRemove(Student students[]){
     Bool v = FALSE;
     int stdnr, id;

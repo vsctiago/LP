@@ -64,7 +64,7 @@ int main(int argc, char** argv) {
                 saveInsFile(instructors);
             }
         }else if(opt == 3){
-            
+            schMenu();
         }
     } while(opt != 4);
     saveInsFile(instructors);
