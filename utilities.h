@@ -11,10 +11,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define NEWLINE '\n'
-
+//Enum used for validations purposes.
 typedef enum {
     FALSE, TRUE
 } Bool;
+
+/** 
+ * Function used to read a string.
+ * Changes the '\n' to '\0'.
+ */
 
 Bool fgetsUpd(char * const sentence, const unsigned int size) {
     unsigned int sSiz;

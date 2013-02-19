@@ -12,28 +12,35 @@
 #include <time.h>
 #include <ctype.h>
 #include "utilities.h"
-
+//Size of the string named "name"
 #define NAME_LENGTH 80
+//Size of the string named "street"
 #define STREET_LENGTH 60
+//Size of the string named "city"
 #define CITY_LENGTH 30
+//Size of the string named "postalcode"
 #define POSTAL_CODE 8
-#define PHONE_LENGTH 9
+//Position for the '-' for validation purposes
 #define PC_DASH 4
+//Position after the '-' for validation purposes
 #define PC_ADASH 5
-
+//Data structure used to create and change instructors & students
 typedef struct tm Date;
-
+//Address structure used to create and change instructors & students
 typedef struct {
     unsigned char street[STREET_LENGTH];
     unsigned short number;
     unsigned char postalcode[POSTAL_CODE];
     unsigned char city[CITY_LENGTH];
 } Address;
-
+//Enum used for the creating and changing of instructors & students
 typedef enum {
     A = 'A', B = 'B', C = 'C', D = 'D'
 } Category;
-
+/**
+ * Person structure used to create and change instructors & students
+ * Contains Address and Date structs aswell as Category enum
+ */
 typedef struct {
     unsigned char name[NAME_LENGTH];
     Address address;
@@ -41,7 +48,12 @@ typedef struct {
     Date date;
     Category category;
 } Person;
-
+/**
+ * Function used to get the name for the instructor or student.
+ * 
+ * @param person - recieves either one instructor or student.
+ * @return - returns the same instructor or student with the new data.
+ */
 Person getName(Person person){
     Bool v = FALSE;
     int i;

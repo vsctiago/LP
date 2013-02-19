@@ -23,7 +23,9 @@ typedef struct {
 } Schedule;
 
 
-
+/**
+ * Function not working properly.
+ * 
 Schedule schInit(Schedule schedule){
     int x, y, n = 9;
     
@@ -59,7 +61,7 @@ Schedule schInit(Schedule schedule){
         }
     }
 }
-
+*/
 void schMenu(){
     printf("1. Add class");
     printf("%c", NEWLINE);
@@ -78,7 +80,6 @@ void showSchedule(Schedule schedule){
             n++;
         }
     }
-    
 }
 
 #ifdef	__cplusplus

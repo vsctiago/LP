@@ -14,13 +14,18 @@
 #define INS_MAX 2
 #define INS_INIT 9999
 
-//:CONFIRM: if unsigned float works.
+/**
+ */
 typedef struct {
     unsigned short license_nr;
     Person person;
     float salary;
 } Instructor;
-
+/**
+ * 
+ * @param instructor
+ * @return 
+ */
 Instructor getLicnr(Instructor instructor){
     Bool v = FALSE;
     
@@ -41,7 +46,11 @@ Instructor getLicnr(Instructor instructor){
     
     return instructor;
 }
-
+/**
+ * 
+ * @param instructor
+ * @return 
+ */
 Instructor getSal(Instructor instructor){
     Bool v = FALSE;
     
@@ -60,7 +69,12 @@ Instructor getSal(Instructor instructor){
     }
     return instructor;
 }
-
+/**
+ * 
+ * @param instructors
+ * @param find
+ * @return 
+ */
 int insVerifyPos(Instructor instructors[], int find){
     Bool v = FALSE;
     int pos = 0;
@@ -81,7 +95,12 @@ int insVerifyPos(Instructor instructors[], int find){
         printf("%c", NEWLINE);
     } return EOF;
 }
-
+/**
+ * 
+ * @param instructors
+ * @param find
+ * @return 
+ */
 int insFind(Instructor instructors[], int find){
     Bool v = FALSE;
     int pos = 0;
@@ -100,7 +119,11 @@ int insFind(Instructor instructors[], int find){
         printf("%c", NEWLINE);
     } return EOF;
 }
-
+/**
+ * 
+ * @param instructors
+ * @return 
+ */
 Instructor initInsFile(Instructor instructors[]) {
     unsigned short int i;
     
@@ -109,7 +132,11 @@ Instructor initInsFile(Instructor instructors[]) {
     }
     return instructors[INS_MAX];
 }
-
+/**
+ * 
+ * @param instructors
+ * @return 
+ */
 Instructor saveInsFile(Instructor instructors[]){
     int frtn;
     
@@ -121,7 +148,11 @@ Instructor saveInsFile(Instructor instructors[]){
     }
     return instructors[INS_MAX];
 }
-
+/**
+ * 
+ * @param instructors
+ * @return 
+ */
 Instructor createInsFile(Instructor instructors[]){
     int frtn;
     
@@ -133,7 +164,11 @@ Instructor createInsFile(Instructor instructors[]){
     }
     return instructors[INS_MAX];
 }
-
+/**
+ * 
+ * @param instructors
+ * @return 
+ */
 Instructor readInsFile(Instructor instructors[]){
     int i;
     
@@ -153,7 +188,9 @@ Instructor readInsFile(Instructor instructors[]){
         fclose(pIns);
     }
 }
-
+/**
+ * 
+ */
 void insMenu(){
     printf("1. Add");
     printf("%c", NEWLINE);
@@ -166,7 +203,12 @@ void insMenu(){
     printf("5. Back");
     printf("%c", NEWLINE);
 }
-
+/**
+ * 
+ * @param instructors
+ * @param insnr
+ * @return 
+ */
 Instructor insAdd(Instructor instructors[], int insnr){
 
     instructors[insnr] = getLicnr(instructors[insnr]);
@@ -181,7 +223,10 @@ Instructor insAdd(Instructor instructors[], int insnr){
     
     return instructors[insnr];
 }
-
+/**
+ * 
+ * @param instructors
+ */
 void insList(Instructor instructors[]){
     int i;
     
@@ -197,7 +242,11 @@ void insList(Instructor instructors[]){
         }
     }
 }
-
+/**
+ * 
+ * @param instructors
+ * @return 
+ */
 Instructor insModify(Instructor instructors[]){
     Bool v = FALSE;
     int opt, lic, insnr;
@@ -264,7 +313,11 @@ Instructor insModify(Instructor instructors[]){
     }
     return instructors[insnr];
 }
-
+/**
+ * 
+ * @param instructors
+ * @return 
+ */
 Instructor insRemove(Instructor instructors[]){
     Bool v = FALSE;
     int insnr, lic;

@@ -1,6 +1,10 @@
-/* 
+/********************************************************************
+ * ESTGF - 2012/2013
+ * Licenciatura em Engenharia Informática
+ * Linguagens de Programação
+ * ******************************************************************
  * File:   main.c
- * Author: psycku
+ * Author: Tiago Fernandes e Rafael Costa
  *
  * Created on 2 de Fevereiro de 2013, 0:27
  */
@@ -64,7 +68,6 @@ int main(int argc, char** argv) {
                 saveInsFile(instructors);
             }
         }else if(opt == 3){
-            schMenu();
         }
     } while(opt != 4);
     saveInsFile(instructors);
