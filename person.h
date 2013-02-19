@@ -159,9 +159,37 @@ Person getAddress(Person person){
 }
 
 Person getPhone(Person person){
+    Bool v = FALSE;
+    
     printf("Phone number: ");
     scanf("%lu", &person.phonenr);
     clearInput();
+    
+    while(v == FALSE){
+        if(person.phonenr > 0 && person.phonenr < 970000000){
+            if(person.phonenr > 210000000 && person.phonenr < 299999999){
+                v = TRUE;
+            }else if(person.phonenr > 910000000 && person.phonenr < 919999999){
+                v = TRUE;
+            }else if(person.phonenr > 920000000 && person.phonenr < 929999999){
+                v = TRUE;
+            }else if(person.phonenr > 930000000 && person.phonenr < 939999999){
+                v = TRUE;
+            }else if(person.phonenr > 960000000 && person.phonenr < 969999999){
+                v = TRUE;  
+            }else{
+                v = FALSE;
+                printf("Insert a valid phone number: ");
+                scanf("%lu", &person.phonenr);
+                clearInput();
+            }
+        }else{
+            v = FALSE;
+            printf("Insert a valid phone number: ");
+            scanf("%lu", &person.phonenr);
+            clearInput();
+        }
+    }
     return person;
 }
 
