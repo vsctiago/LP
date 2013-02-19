@@ -50,9 +50,6 @@ Student getRev(Student student){
     Bool v = FALSE;
     char rev;
     
-    printf("Salary: ");
-    scanf("%f", &student.rev);
-    
     do {
         clearInput();
         printf("Revalidate driver license?(Y,N): ");
