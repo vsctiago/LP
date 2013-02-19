@@ -188,7 +188,7 @@ void insList(Instructor instructors[]){
     printf("*Instructors List*");
     printf("%c", NEWLINE);
     for(i=0; i < INS_MAX; i++){
-        if(instructors[i].license_nr == 9999){
+        if(instructors[i].license_nr == INS_INIT){
             printf("%hu", instructors[i].license_nr);
             printf("%c", NEWLINE);
         }else{
