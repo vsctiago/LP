@@ -22,15 +22,42 @@ typedef struct {
 } Instructor;
 
 Instructor getLicnr(Instructor instructor){
+    Bool v = FALSE;
+    
     printf("License Nr: ");
     scanf("%hu", &instructor.license_nr);
     clearInput();
+    
+    while(v == FALSE){
+        if(instructor.license_nr > 1000 && instructor.license_nr < 9999){
+            v = TRUE;
+        }else{
+            v = FALSE;
+            printf("Insert a valid license number:");
+            scanf("%hu", &instructor.license_nr);
+            clearInput();
+        }
+    }
+    
     return instructor;
 }
 
 Instructor getSal(Instructor instructor){
+    Bool v = FALSE;
+    
     printf("Salary: ");
     scanf("%f", &instructor.salary);
+    
+    while(v == FALSE){
+        if(instructor.salary >= 500 && instructor.salary <= 5000){
+            v = TRUE;
+        }else{
+            v = FALSE;
+            printf("Insert a valid salary(Range 500-5000): ");
+            scanf("%hu", &instructor.salary);
+            clearInput();
+        }
+    }
     return instructor;
 }
 
